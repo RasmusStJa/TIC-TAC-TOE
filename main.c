@@ -21,9 +21,16 @@ int main(void)
         print2DArr(arena);
 
         //inform player
-        if (player == X) { printf("X's turn:"); }
-        else if (player == O) { printf("O's turn:"); }
-        else { break; }
+        switch (player) {
+            case X:
+                printf("X's turn:");
+                break;
+            case O:
+                printf("O's turn:");
+                break;
+            default:
+                break;  //hopefully break while loop
+        }
 
         //get coords
         scanf("%d %d", &x, &y);
@@ -43,8 +50,14 @@ int main(void)
         printf("\nINVALID MOVE\n");
     }
 
-    if (winner == X) { printf("X has won!\n"); }
-    else if (winner == O) { printf("O has won!\n"); }
+    switch (winner) {
+        case X:
+            printf("X has won!\n");
+            break;
+        case O:
+            printf("X has won!\n");
+            break;
+    }
     print2DArr(arena);
 
     return 0;
@@ -71,12 +84,15 @@ XO checkWin(XO arena[3][3]) {
 void print2DArr(XO arena[3][3]) {
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
-            if (arena[i][j] == X) {
-                printf("X");
-            } else if (arena[i][j] == O) {
-                printf("O");
-            } else {
-                printf("-");
+            switch (arena[i][j]) {
+                case X:
+                    printf("X");
+                    break;
+                case O:
+                    printf("O");
+                    break;
+                default:
+                    printf("-");
             }
         }
         printf("\n");
@@ -89,6 +105,5 @@ bool check3equals(const XO one, const XO two, const XO three) {
     if (two == empty) { return false; }
     if (three == empty) { return false; }
 
-    if (one == two && two == three) { return true; }
-    return false;
+    return one == two && two == three;
 }
