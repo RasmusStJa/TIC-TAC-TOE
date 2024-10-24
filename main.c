@@ -1,16 +1,19 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-typedef enum { X, O, empty } XO;
-XO arena[3][3] = { {empty, empty, empty},
-                        {empty, empty, empty},
-                        {empty, empty, empty} };
+#define WIDTH 3
+#define HEIGHT WIDTH
+
+typedef enum { empty, X, O } XO;
+
+XO arena[HEIGHT][WIDTH];
+
 XO player = X;
 XO winner = empty;
 
-XO checkWin(XO arena[3][3]);
+XO checkWin(XO arena[HEIGHT][WIDTH]);
 
-void print2DArr(XO arena[3][3]);
+void print2DArr(XO arena[HEIGHT][WIDTH]);
 
 bool check3equals(XO one, XO two, XO three);
 
@@ -55,7 +58,7 @@ int main(void)
             printf("X has won!\n");
             break;
         case O:
-            printf("X has won!\n");
+            printf("O has won!\n");
             break;
     }
     print2DArr(arena);
@@ -63,17 +66,17 @@ int main(void)
     return 0;
 }
 
-XO checkWin(XO arena[3][3]) {
-    for (int i = 0; i < 3; i++) {
-        if (check3equals(arena[i][0], arena[i][1], arena[i][2])){
+XO checkWin(XO arena[HEIGHT][WIDTH]) {
+    for (int i = 0; i < HEIGHT; i++) {
+        if (check3equals(arena[i][0], arena[i][1], arena[i][2])){ //horizontal
             return arena[i][0];
         }
-        if (check3equals(arena[0][i], arena[1][i], arena[2][i])){
+        if (check3equals(arena[0][i], arena[1][i], arena[2][i])){  //vertical
             return arena[0][i];
         }
     }
 
-    if (check3equals(arena[0][0], arena[1][1], arena[2][2])
+    if (check3equals(arena[0][0], arena[1][1], arena[2][2])  //diagonal
         || check3equals(arena[0][2], arena[1][1], arena[2][0])){
         return arena[1][1];
     }
@@ -81,10 +84,10 @@ XO checkWin(XO arena[3][3]) {
     return empty;
 }
 
-void print2DArr(XO arena[3][3]) {
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            switch (arena[i][j]) {
+void print2DArr(XO arena[HEIGHT][WIDTH]) {
+    for (int y = 0; y < HEIGHT; y++) {
+        for (int x = 0; x < WIDTH; x++) {
+            switch (arena[y][x]) {
                 case X:
                     printf("X");
                     break;
