@@ -83,7 +83,7 @@ XO checkWin(XO arena[WIDTH][HEIGHT]) {
 
     if (check3equals(arena[0][0], arena[1][1], arena[2][2])  //diagonal
         || check3equals(arena[0][2], arena[1][1], arena[2][0])){
-        return arena[1][1];
+        return arena[1][1];  //Only works bc the intersection is correct in both cases, otherwise the if statement would need to be split
     }
 
     return empty;
