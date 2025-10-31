@@ -4,9 +4,11 @@
 #define WIDTH 3
 #define HEIGHT 3
 
+typedef uint_8_t u8;
+
 typedef enum { empty, X, O } XO;
 
-XO arena[WIDTH][HEIGHT];  //2D array initialized as empty (because it's the first enum in XO
+XO arena[WIDTH][HEIGHT] = {{ empty }};  //2D array initialized as empty
 
 XO player = X;  //x starts
 XO winner = empty;  //winner has not been determined
@@ -19,7 +21,7 @@ bool check3equals(XO one, XO two, XO three);
 
 int main(void)
 {
-    int x, y;
+    u8 x, y;
     while(winner == empty) {
         print2DArr(arena);
 
@@ -36,7 +38,7 @@ int main(void)
         }
 
         //get coords (from 1 - 3)
-        scanf("%d %d", &x, &y);
+        scanf("%u %u", &x, &y);
         x--; y--;  //change to 0 - 2
 
         //failsafe: make sure the area isn't already taken
@@ -72,7 +74,7 @@ int main(void)
 
 XO checkWin(XO arena[WIDTH][HEIGHT]) {
     //NOTE: will not work with any arena-sizes BUT 3x3
-    for (int i = 0; i < HEIGHT; i++) {
+    for (u8 i = 0; i < HEIGHT; i++) {
         if (check3equals(arena[i][0], arena[i][1], arena[i][2])){ //horizontal
             return arena[i][0];
         }
@@ -90,8 +92,8 @@ XO checkWin(XO arena[WIDTH][HEIGHT]) {
 }
 
 void print2DArr(XO arena[WIDTH][HEIGHT]) {
-    for (int y = 0; y < HEIGHT; y++) {
-        for (int x = 0; x < WIDTH; x++) {
+    for (u8 y = 0; y < HEIGHT; y++) {
+        for (u8 x = 0; x < WIDTH; x++) {
             switch (arena[x][y]) {
                 case X:
                     printf("X");
